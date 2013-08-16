@@ -6,25 +6,27 @@
   </small>
 </h1>
 
-<ul class="videos">
-  <% @posts.each do |post| %>
-    <li>
-      <h2>
-        <%= image_tag "https://graph.facebook.com/#{post['from']['id']}/picture" %>
-        <%= post['from']['name'] %>
-        <small><%= time_ago_in_words(post['created_time']) %></small>
-      </h2>
-      <blockquote>
-        <%= post['message'] %>
-      </blockquote>
+<% if @posts.present? %>
+  <ul class="videos">
+    <% @posts.each do |post| %>
+      <li>
+        <h2>
+          <%= image_tag "https://graph.facebook.com/#{post['from']['id']}/picture" %>
+          <%= post['from']['name'] %>
+          <small><%= time_ago_in_words(post['created_time']) %></small>
+        </h2>
+        <blockquote>
+          <%= post['message'] %>
+        </blockquote>
 
-      <% if post['link'].split('.').include? 'youtube' %>
-        <div>
-          <iframe width="560" height="315" src="//www.youtube.com/embed/<%= post['link'].split('=').last %>" frameborder="0" allowfullscreen></iframe>
-        </div>
-      <% else %>
-        <%= link_to 'Click here to view video', post['link'], target: '_blank' %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+        <% if post['link'].split('.').include? 'youtube' %>
+          <div>
+            <iframe width="560" height="315" src="//www.youtube.com/embed/<%= post['link'].split('=').last %>" frameborder="0" allowfullscreen></iframe>
+          </div>
+        <% else %>
+          <%= link_to 'Click here to view video', post['link'], target: '_blank' %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
