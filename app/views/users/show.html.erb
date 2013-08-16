@@ -6,27 +6,17 @@
   </small>
 </h1>
 
-<dl>
-  <dt>First name</dt>
-  <dd><%= @user.first_name %></dd>
-
-  <dt>First name:</dt>
-  <dd><%= @user.first_name %></dd>
-
-  <dt>Last name:</dt>
-  <dd><%= @user.last_name %></dd>
-
-  <dt>Facebook access token:</dt>
-  <dd><%= @user.facebook_access_token %></dd>
-
-  <dt>Facebook:</dt>
-  <dd><%= @user.facebook_id %></dd>
-</dl>
-
-<ul>
+<ul class="videos">
   <% @posts.each do |post| %>
     <li>
-      <%= post['from']['name'] %> said '<%= post['message'] %>'
+      <h2>
+        <%= post['from']['name'] %>
+        <small><%= time_ago_in_words(post['created_time']) %></small>
+      </h2>
+      <blockquote>
+        <%= post['message'] %>
+      </blockquote>
+
       <% if post['link'].split('.').include? 'youtube' %>
         <div>
           <iframe width="560" height="315" src="//www.youtube.com/embed/<%= post['link'].split('=').last %>" frameborder="0" allowfullscreen></iframe>
