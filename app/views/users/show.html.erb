@@ -27,7 +27,13 @@
   <% @posts.each do |post| %>
     <li>
       <%= post['from']['name'] %> said '<%= post['message'] %>'
-      <%= link_to 'Click here to view video', post['link'], target: '_blank' %>
+      <% if post['link'].split('.').include? 'youtube' %>
+        <div>
+          <iframe width="560" height="315" src="//www.youtube.com/embed/<%= post['link'].split('=').last %>" frameborder="0" allowfullscreen></iframe>
+        </div>
+      <% else %>
+        <%= link_to 'Click here to view video', post['link'], target: '_blank' %>
+      <% end %>
     </li>
   <% end %>
 </ul>
